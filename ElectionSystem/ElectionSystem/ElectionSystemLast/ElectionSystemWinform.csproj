@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3344409E-29B8-4CFC-B5CC-1419D704A0AA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ElectionSystemLast</RootNamespace>
+    <AssemblyName>ElectionSystemLast</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="VotersAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VotersAdmin.Designer.cs">
+      <DependentUpon>VotersAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CandidatesAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CandidatesAdmin.Designer.cs">
+      <DependentUpon>CandidatesAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PoliticalPartiesAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PoliticalPartiesAdmin.Designer.cs">
+      <DependentUpon>PoliticalPartiesAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeputyMayorsAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeputyMayorsAdmin.Designer.cs">
+      <DependentUpon>DeputyMayorsAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BallotBoxAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BallotBoxAdmin.Designer.cs">
+      <DependentUpon>BallotBoxAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VotesAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VotesAdmin.Designer.cs">
+      <DependentUpon>VotesAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ElectionAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ElectionAdmin.Designer.cs">
+      <DependentUpon>ElectionAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CityAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CityAdmin.Designer.cs">
+      <DependentUpon>CityAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegionAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegionAdmin.Designer.cs">
+      <DependentUpon>RegionAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CandidateDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CandidateDetails.Designer.cs">
+      <DependentUpon>CandidateDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VotingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VotingPage.Designer.cs">
+      <DependentUpon>VotingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminPage.Designer.cs">
+      <DependentUpon>AdminPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CitizensAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CitizensAdmin.Designer.cs">
+      <DependentUpon>CitizensAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EligibleToVoteAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EligibleToVoteAdmin.Designer.cs">
+      <DependentUpon>EligibleToVoteAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NotEligibleToVoteAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NotEligibleToVoteAdmin.Designer.cs">
+      <DependentUpon>NotEligibleToVoteAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="VoterInfo.cs" />
+    <Compile Include="HomePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HomePage.Designer.cs">
+      <DependentUpon>HomePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VoterLoginPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VoterLoginPage.Designer.cs">
+      <DependentUpon>VoterLoginPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VoterPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VoterPage.Designer.cs">
+      <DependentUpon>VoterPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="HomePage.resx">
+      <DependentUpon>HomePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VotersAdmin.resx">
+      <DependentUpon>VotersAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CandidatesAdmin.resx">
+      <DependentUpon>CandidatesAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PoliticalPartiesAdmin.resx">
+      <DependentUpon>PoliticalPartiesAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeputyMayorsAdmin.resx">
+      <DependentUpon>DeputyMayorsAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BallotBoxAdmin.resx">
+      <DependentUpon>BallotBoxAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VotesAdmin.resx">
+      <DependentUpon>VotesAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ElectionAdmin.resx">
+      <DependentUpon>ElectionAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CityAdmin.resx">
+      <DependentUpon>CityAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegionAdmin.resx">
+      <DependentUpon>RegionAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VoterLoginPage.resx">
+      <DependentUpon>VoterLoginPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VoterPage.resx">
+      <DependentUpon>VoterPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CandidateDetails.resx">
+      <DependentUpon>CandidateDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VotingPage.resx">
+      <DependentUpon>VotingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminPage.resx">
+      <DependentUpon>AdminPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CitizensAdmin.resx">
+      <DependentUpon>CitizensAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EligibleToVoteAdmin.resx">
+      <DependentUpon>EligibleToVoteAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NotEligibleToVoteAdmin.resx">
+      <DependentUpon>NotEligibleToVoteAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EntityDeploy Include="Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

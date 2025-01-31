@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="088e5001b23a440aac943ac3def54bc0" Name="Diagram1" ZoomLevel="69">
+        <EntityTypeShape EntityType="ElectionModel.Ballot_box" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionModel.Candidate" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionModel.Citizen" Width="1.5" PointX="1.5" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionModel.City" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionModel.DeputyMayor" Width="1.5" PointX="8.25" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionModel.Election" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionModel.EligibleToVote" Width="1.5" PointX="0.75" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionModel.PartyVotes" Width="1.5" PointX="6" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionModel.PoliticalParty" Width="1.5" PointX="0.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionModel.Region" Width="1.5" PointX="1.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionModel.Result" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionModel.Vote" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionModel.Voter" Width="1.5" PointX="3" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionModel.GENERAL_RESULT_VIEW" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="ElectionModel.FK__Ballot_bo__CityI__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__PartyVote__BoxID__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__Vote__BoxID__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__Voter__BoxID__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__Candidate__CityI__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__Candidate__Elect__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__Candidate__Eligi__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__Candidate__Party__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__DeputyMay__Candi__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__Vote__CandidateI__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__EligibleT__Citiz__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__City__RegionID__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__Result__CityID__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__DeputyMay__Eligi__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__DeputyMay__Party__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__PartyVote__Elect__6477ECF3" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__Result__Election__6A30C649" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__Vote__BoxID__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__Voter__EligibleT__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__PartyVote__Party__656C112C" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__Result__PartyID__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionModel.FK__Vote__VoterID__5EBF139D" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ElectionModel.CHECK_RESULT_FOR_CLUSTER_COLUMNS" Width="1.5" PointX="7.875" PointY="1" />
+        <EntityTypeShape EntityType="ElectionModel.NotEligibleToVote" Width="1.5" PointX="3.75" PointY="24" />
+        <AssociationConnector Association="ElectionModel.FK__NotEligib__Citiz__4CA06362" />
+        <EntityTypeShape EntityType="ElectionModel.Not_eligible_to_vote1" Width="1.5" PointX="3.75" PointY="21.125" />
+        <EntityTypeShape EntityType="ElectionModel.CHECK_RESULT_FOR_CLUSTER_COLUMNS1" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ElectionModel.GENERAL_RESULT_VIEW1" Width="1.5" PointX="9.375" PointY="3.75" />
+        <AssociationConnector Association="ElectionModel.FK__Not_eligi__Citiz__3A81B3271" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

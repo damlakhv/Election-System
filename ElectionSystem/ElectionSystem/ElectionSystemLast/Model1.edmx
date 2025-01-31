@@ -1,0 +1,1487 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ElectionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Ballot_box">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VoterCount" Type="int" Nullable="false" />
+          <Property Name="VoteCount" Type="int" Nullable="false" />
+          <Property Name="CityID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Candidate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="EligibleToVoteID" Type="char" MaxLength="11" />
+          <Property Name="ID" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="ElectionID" Type="int" Nullable="false" />
+          <Property Name="PartyID" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="CityID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Citizen">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="20" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Birthday" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="RegionID" Type="int" />
+        </EntityType>
+        <EntityType Name="DeputyMayor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="EligibleToVoteID" Type="char" MaxLength="11" />
+          <Property Name="ID" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="PartyID" Type="varchar" MaxLength="3" />
+          <Property Name="CandidateID" Type="char" MaxLength="11" />
+        </EntityType>
+        <EntityType Name="Election">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ElectionType" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ElectionDate" Type="date" Nullable="false" />
+          <Property Name="ParticipationRate" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="EligibleToVote">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="CitizenID" Type="char" MaxLength="11" />
+          <Property Name="ID" Type="char" MaxLength="11" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Not_eligible_to_vote">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="CitizenID" Type="char" MaxLength="11" />
+          <Property Name="ID" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="MainReason" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PartyVotes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ElectionID" Type="int" Nullable="false" />
+          <Property Name="BoxID" Type="int" Nullable="false" />
+          <Property Name="PartyID" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="VoteCount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PoliticalParty">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="PartyName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="FoundationDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegionName" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Result">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ElectionID" Type="int" Nullable="false" />
+          <Property Name="PartyID" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="VoteCount" Type="int" />
+          <Property Name="CityID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vote">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ElectionID" Type="int" Nullable="false" />
+          <Property Name="VoterID" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="CandidateID" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="BoxID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Voter">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="EligibleToVoteID" Type="char" MaxLength="11" />
+          <Property Name="ID" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="VoterPassword" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="HasVoted" Type="bit" Nullable="false" />
+          <Property Name="VoteTimestamp" Type="datetime" />
+          <Property Name="BoxID" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Election.dbo.CHECK_RESULT_FOR_CLUSTER_COLUMNS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CHECK_RESULT_FOR_CLUSTER_COLUMNS">
+          <Key>
+            <PropertyRef Name="CityName" />
+            <PropertyRef Name="PartyName" />
+          </Key>
+          <Property Name="CityName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="PartyName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="VoteCount" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Election.dbo.GENERAL_RESULT_VIEW' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="GENERAL_RESULT_VIEW">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="TotalVoteCount" Type="int" />
+        </EntityType>
+        <Association Name="FK__Ballot_bo__CityI__4E88ABD4">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Ballot_box" Type="Self.Ballot_box" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Ballot_box">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__CityI__4BAC3F29">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__Elect__49C3F6B7">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="ElectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__Eligi__48CFD27E">
+          <End Role="EligibleToVote" Type="Self.EligibleToVote" Multiplicity="0..1" />
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EligibleToVote">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="EligibleToVoteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__Party__4AB81AF0">
+          <End Role="PoliticalParty" Type="Self.PoliticalParty" Multiplicity="1" />
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PoliticalParty">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="PartyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__City__RegionID__45F365D3">
+          <End Role="Region" Type="Self.Region" Multiplicity="0..1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DeputyMay__Candi__5441852A">
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="0..1" />
+          <End Role="DeputyMayor" Type="Self.DeputyMayor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DeputyMayor">
+              <PropertyRef Name="CandidateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DeputyMay__Eligi__52593CB8">
+          <End Role="EligibleToVote" Type="Self.EligibleToVote" Multiplicity="0..1" />
+          <End Role="DeputyMayor" Type="Self.DeputyMayor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EligibleToVote">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DeputyMayor">
+              <PropertyRef Name="EligibleToVoteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DeputyMay__Party__534D60F1">
+          <End Role="PoliticalParty" Type="Self.PoliticalParty" Multiplicity="0..1" />
+          <End Role="DeputyMayor" Type="Self.DeputyMayor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PoliticalParty">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DeputyMayor">
+              <PropertyRef Name="PartyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EligibleT__Citiz__3D5E1FD2">
+          <End Role="Citizen" Type="Self.Citizen" Multiplicity="0..1" />
+          <End Role="EligibleToVote" Type="Self.EligibleToVote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Citizen">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EligibleToVote">
+              <PropertyRef Name="CitizenID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Not_eligi__Citiz__3A81B327">
+          <End Role="Citizen" Type="Self.Citizen" Multiplicity="0..1" />
+          <End Role="Not_eligible_to_vote" Type="Self.Not_eligible_to_vote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Citizen">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Not_eligible_to_vote">
+              <PropertyRef Name="CitizenID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PartyVote__BoxID__66603565">
+          <End Role="Ballot_box" Type="Self.Ballot_box" Multiplicity="1" />
+          <End Role="PartyVotes" Type="Self.PartyVotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ballot_box">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PartyVotes">
+              <PropertyRef Name="BoxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PartyVote__Elect__6477ECF3">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="PartyVotes" Type="Self.PartyVotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PartyVotes">
+              <PropertyRef Name="ElectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PartyVote__Party__656C112C">
+          <End Role="PoliticalParty" Type="Self.PoliticalParty" Multiplicity="1" />
+          <End Role="PartyVotes" Type="Self.PartyVotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PoliticalParty">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PartyVotes">
+              <PropertyRef Name="PartyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Result__CityID__6C190EBB">
+          <End Role="City" Type="Self.City" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Result" Type="Self.Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Result">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Result__Election__6A30C649">
+          <End Role="Election" Type="Self.Election" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Result" Type="Self.Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Result">
+              <PropertyRef Name="ElectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Result__PartyID__6B24EA82">
+          <End Role="PoliticalParty" Type="Self.PoliticalParty" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Result" Type="Self.Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PoliticalParty">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Result">
+              <PropertyRef Name="PartyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vote__BoxID__5DCAEF64">
+          <End Role="Election" Type="Self.Election" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Vote" Type="Self.Vote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Vote">
+              <PropertyRef Name="ElectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vote__BoxID__60A75C0F">
+          <End Role="Ballot_box" Type="Self.Ballot_box" Multiplicity="1" />
+          <End Role="Vote" Type="Self.Vote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ballot_box">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Vote">
+              <PropertyRef Name="BoxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vote__CandidateI__5FB337D6">
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="1" />
+          <End Role="Vote" Type="Self.Vote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Vote">
+              <PropertyRef Name="CandidateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vote__VoterID__5EBF139D">
+          <End Role="Voter" Type="Self.Voter" Multiplicity="1" />
+          <End Role="Vote" Type="Self.Vote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Voter">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Vote">
+              <PropertyRef Name="VoterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Voter__BoxID__59FA5E80">
+          <End Role="Ballot_box" Type="Self.Ballot_box" Multiplicity="0..1" />
+          <End Role="Voter" Type="Self.Voter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ballot_box">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Voter">
+              <PropertyRef Name="BoxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Voter__EligibleT__571DF1D5">
+          <End Role="EligibleToVote" Type="Self.EligibleToVote" Multiplicity="0..1" />
+          <End Role="Voter" Type="Self.Voter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EligibleToVote">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Voter">
+              <PropertyRef Name="EligibleToVoteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetCandidatesByCity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="VoterID" Type="char" Mode="In" />
+        </Function>
+        <Function Name="GetCandidatesWithDeputyByCity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="VoterID" Type="char" Mode="In" />
+        </Function>
+        <Function Name="GetVoterInformation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="VoterID" Type="char" Mode="In" />
+        </Function>
+        <EntityContainer Name="ElectionModelStoreContainer">
+          <EntitySet Name="Ballot_box" EntityType="Self.Ballot_box" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Candidate" EntityType="Self.Candidate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Citizen" EntityType="Self.Citizen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeputyMayor" EntityType="Self.DeputyMayor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Election" EntityType="Self.Election" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EligibleToVote" EntityType="Self.EligibleToVote" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Not_eligible_to_vote" EntityType="Self.Not_eligible_to_vote" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PartyVotes" EntityType="Self.PartyVotes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PoliticalParty" EntityType="Self.PoliticalParty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Result" EntityType="Self.Result" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vote" EntityType="Self.Vote" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Voter" EntityType="Self.Voter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CHECK_RESULT_FOR_CLUSTER_COLUMNS" EntityType="Self.CHECK_RESULT_FOR_CLUSTER_COLUMNS" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CHECK_RESULT_FOR_CLUSTER_COLUMNS].[CityName] AS [CityName], 
+    [CHECK_RESULT_FOR_CLUSTER_COLUMNS].[PartyName] AS [PartyName], 
+    [CHECK_RESULT_FOR_CLUSTER_COLUMNS].[VoteCount] AS [VoteCount]
+    FROM [dbo].[CHECK_RESULT_FOR_CLUSTER_COLUMNS] AS [CHECK_RESULT_FOR_CLUSTER_COLUMNS]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="GENERAL_RESULT_VIEW" EntityType="Self.GENERAL_RESULT_VIEW" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [GENERAL_RESULT_VIEW].[ID] AS [ID], 
+    [GENERAL_RESULT_VIEW].[TotalVoteCount] AS [TotalVoteCount]
+    FROM [dbo].[GENERAL_RESULT_VIEW] AS [GENERAL_RESULT_VIEW]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Ballot_bo__CityI__4E88ABD4" Association="Self.FK__Ballot_bo__CityI__4E88ABD4">
+            <End Role="City" EntitySet="City" />
+            <End Role="Ballot_box" EntitySet="Ballot_box" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__CityI__4BAC3F29" Association="Self.FK__Candidate__CityI__4BAC3F29">
+            <End Role="City" EntitySet="City" />
+            <End Role="Candidate" EntitySet="Candidate" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__Elect__49C3F6B7" Association="Self.FK__Candidate__Elect__49C3F6B7">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="Candidate" EntitySet="Candidate" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__Eligi__48CFD27E" Association="Self.FK__Candidate__Eligi__48CFD27E">
+            <End Role="EligibleToVote" EntitySet="EligibleToVote" />
+            <End Role="Candidate" EntitySet="Candidate" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__Party__4AB81AF0" Association="Self.FK__Candidate__Party__4AB81AF0">
+            <End Role="PoliticalParty" EntitySet="PoliticalParty" />
+            <End Role="Candidate" EntitySet="Candidate" />
+          </AssociationSet>
+          <AssociationSet Name="FK__City__RegionID__45F365D3" Association="Self.FK__City__RegionID__45F365D3">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DeputyMay__Candi__5441852A" Association="Self.FK__DeputyMay__Candi__5441852A">
+            <End Role="Candidate" EntitySet="Candidate" />
+            <End Role="DeputyMayor" EntitySet="DeputyMayor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DeputyMay__Eligi__52593CB8" Association="Self.FK__DeputyMay__Eligi__52593CB8">
+            <End Role="EligibleToVote" EntitySet="EligibleToVote" />
+            <End Role="DeputyMayor" EntitySet="DeputyMayor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DeputyMay__Party__534D60F1" Association="Self.FK__DeputyMay__Party__534D60F1">
+            <End Role="PoliticalParty" EntitySet="PoliticalParty" />
+            <End Role="DeputyMayor" EntitySet="DeputyMayor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EligibleT__Citiz__3D5E1FD2" Association="Self.FK__EligibleT__Citiz__3D5E1FD2">
+            <End Role="Citizen" EntitySet="Citizen" />
+            <End Role="EligibleToVote" EntitySet="EligibleToVote" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Not_eligi__Citiz__3A81B327" Association="Self.FK__Not_eligi__Citiz__3A81B327">
+            <End Role="Citizen" EntitySet="Citizen" />
+            <End Role="Not_eligible_to_vote" EntitySet="Not_eligible_to_vote" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartyVote__BoxID__66603565" Association="Self.FK__PartyVote__BoxID__66603565">
+            <End Role="Ballot_box" EntitySet="Ballot_box" />
+            <End Role="PartyVotes" EntitySet="PartyVotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartyVote__Elect__6477ECF3" Association="Self.FK__PartyVote__Elect__6477ECF3">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="PartyVotes" EntitySet="PartyVotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartyVote__Party__656C112C" Association="Self.FK__PartyVote__Party__656C112C">
+            <End Role="PoliticalParty" EntitySet="PoliticalParty" />
+            <End Role="PartyVotes" EntitySet="PartyVotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Result__CityID__6C190EBB" Association="Self.FK__Result__CityID__6C190EBB">
+            <End Role="City" EntitySet="City" />
+            <End Role="Result" EntitySet="Result" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Result__Election__6A30C649" Association="Self.FK__Result__Election__6A30C649">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="Result" EntitySet="Result" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Result__PartyID__6B24EA82" Association="Self.FK__Result__PartyID__6B24EA82">
+            <End Role="PoliticalParty" EntitySet="PoliticalParty" />
+            <End Role="Result" EntitySet="Result" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vote__BoxID__5DCAEF64" Association="Self.FK__Vote__BoxID__5DCAEF64">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="Vote" EntitySet="Vote" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vote__BoxID__60A75C0F" Association="Self.FK__Vote__BoxID__60A75C0F">
+            <End Role="Ballot_box" EntitySet="Ballot_box" />
+            <End Role="Vote" EntitySet="Vote" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vote__CandidateI__5FB337D6" Association="Self.FK__Vote__CandidateI__5FB337D6">
+            <End Role="Candidate" EntitySet="Candidate" />
+            <End Role="Vote" EntitySet="Vote" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vote__VoterID__5EBF139D" Association="Self.FK__Vote__VoterID__5EBF139D">
+            <End Role="Voter" EntitySet="Voter" />
+            <End Role="Vote" EntitySet="Vote" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Voter__BoxID__59FA5E80" Association="Self.FK__Voter__BoxID__59FA5E80">
+            <End Role="Ballot_box" EntitySet="Ballot_box" />
+            <End Role="Voter" EntitySet="Voter" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Voter__EligibleT__571DF1D5" Association="Self.FK__Voter__EligibleT__571DF1D5">
+            <End Role="EligibleToVote" EntitySet="EligibleToVote" />
+            <End Role="Voter" EntitySet="Voter" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ElectionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Ballot_box">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VoterCount" Type="Int32" Nullable="false" />
+          <Property Name="VoteCount" Type="Int32" Nullable="false" />
+          <Property Name="CityID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="City" Relationship="Self.FK__Ballot_bo__CityI__4E88ABD4" FromRole="Ballot_box" ToRole="City" />
+          <NavigationProperty Name="PartyVotes" Relationship="Self.FK__PartyVote__BoxID__66603565" FromRole="Ballot_box" ToRole="PartyVotes" />
+          <NavigationProperty Name="Vote" Relationship="Self.FK__Vote__BoxID__60A75C0F" FromRole="Ballot_box" ToRole="Vote" />
+          <NavigationProperty Name="Voter" Relationship="Self.FK__Voter__BoxID__59FA5E80" FromRole="Ballot_box" ToRole="Voter" />
+        </EntityType>
+        <EntityType Name="Candidate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="EligibleToVoteID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="ID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ElectionID" Type="Int32" Nullable="false" />
+          <Property Name="PartyID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CityID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="City" Relationship="Self.FK__Candidate__CityI__4BAC3F29" FromRole="Candidate" ToRole="City" />
+          <NavigationProperty Name="Election" Relationship="Self.FK__Candidate__Elect__49C3F6B7" FromRole="Candidate" ToRole="Election" />
+          <NavigationProperty Name="EligibleToVote" Relationship="Self.FK__Candidate__Eligi__48CFD27E" FromRole="Candidate" ToRole="EligibleToVote" />
+          <NavigationProperty Name="PoliticalParty" Relationship="Self.FK__Candidate__Party__4AB81AF0" FromRole="Candidate" ToRole="PoliticalParty" />
+          <NavigationProperty Name="DeputyMayor" Relationship="Self.FK__DeputyMay__Candi__5441852A" FromRole="Candidate" ToRole="DeputyMayor" />
+          <NavigationProperty Name="Vote" Relationship="Self.FK__Vote__CandidateI__5FB337D6" FromRole="Candidate" ToRole="Vote" />
+        </EntityType>
+        <EntityType Name="Citizen">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SecondName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="EligibleToVote" Relationship="Self.FK__EligibleT__Citiz__3D5E1FD2" FromRole="Citizen" ToRole="EligibleToVote" />
+          <NavigationProperty Name="Not_eligible_to_vote" Relationship="Self.FK__Not_eligi__Citiz__3A81B327" FromRole="Citizen" ToRole="Not_eligible_to_vote" />
+          <NavigationProperty Name="NotEligibleToVote" Relationship="ElectionModel.FK__NotEligib__Citiz__4CA06362" FromRole="Citizen" ToRole="NotEligibleToVote" />
+          <NavigationProperty Name="Not_eligible_to_vote1" Relationship="ElectionModel.FK__Not_eligi__Citiz__3A81B3271" FromRole="Citizen" ToRole="Not_eligible_to_vote1" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RegionID" Type="Int32" />
+          <NavigationProperty Name="Ballot_box" Relationship="Self.FK__Ballot_bo__CityI__4E88ABD4" FromRole="City" ToRole="Ballot_box" />
+          <NavigationProperty Name="Candidate" Relationship="Self.FK__Candidate__CityI__4BAC3F29" FromRole="City" ToRole="Candidate" />
+          <NavigationProperty Name="Region" Relationship="Self.FK__City__RegionID__45F365D3" FromRole="City" ToRole="Region" />
+          <NavigationProperty Name="Result" Relationship="Self.FK__Result__CityID__6C190EBB" FromRole="City" ToRole="Result" />
+        </EntityType>
+        <EntityType Name="DeputyMayor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="EligibleToVoteID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="ID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PartyID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="CandidateID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Candidate" Relationship="Self.FK__DeputyMay__Candi__5441852A" FromRole="DeputyMayor" ToRole="Candidate" />
+          <NavigationProperty Name="EligibleToVote" Relationship="Self.FK__DeputyMay__Eligi__52593CB8" FromRole="DeputyMayor" ToRole="EligibleToVote" />
+          <NavigationProperty Name="PoliticalParty" Relationship="Self.FK__DeputyMay__Party__534D60F1" FromRole="DeputyMayor" ToRole="PoliticalParty" />
+        </EntityType>
+        <EntityType Name="Election">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ElectionType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ElectionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ParticipationRate" Type="Decimal" Precision="5" Scale="2" />
+          <NavigationProperty Name="Candidate" Relationship="Self.FK__Candidate__Elect__49C3F6B7" FromRole="Election" ToRole="Candidate" />
+          <NavigationProperty Name="PartyVotes" Relationship="Self.FK__PartyVote__Elect__6477ECF3" FromRole="Election" ToRole="PartyVotes" />
+          <NavigationProperty Name="Result" Relationship="Self.FK__Result__Election__6A30C649" FromRole="Election" ToRole="Result" />
+          <NavigationProperty Name="Vote" Relationship="Self.FK__Vote__BoxID__5DCAEF64" FromRole="Election" ToRole="Vote" />
+        </EntityType>
+        <EntityType Name="EligibleToVote">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="CitizenID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="ID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Candidate" Relationship="Self.FK__Candidate__Eligi__48CFD27E" FromRole="EligibleToVote" ToRole="Candidate" />
+          <NavigationProperty Name="Citizen" Relationship="Self.FK__EligibleT__Citiz__3D5E1FD2" FromRole="EligibleToVote" ToRole="Citizen" />
+          <NavigationProperty Name="DeputyMayor" Relationship="Self.FK__DeputyMay__Eligi__52593CB8" FromRole="EligibleToVote" ToRole="DeputyMayor" />
+          <NavigationProperty Name="Voter" Relationship="Self.FK__Voter__EligibleT__571DF1D5" FromRole="EligibleToVote" ToRole="Voter" />
+        </EntityType>
+        <EntityType Name="Not_eligible_to_vote">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="CitizenID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="ID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MainReason" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Citizen" Relationship="Self.FK__Not_eligi__Citiz__3A81B327" FromRole="Not_eligible_to_vote" ToRole="Citizen" />
+        </EntityType>
+        <EntityType Name="PartyVotes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ElectionID" Type="Int32" Nullable="false" />
+          <Property Name="BoxID" Type="Int32" Nullable="false" />
+          <Property Name="PartyID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VoteCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ballot_box" Relationship="Self.FK__PartyVote__BoxID__66603565" FromRole="PartyVotes" ToRole="Ballot_box" />
+          <NavigationProperty Name="Election" Relationship="Self.FK__PartyVote__Elect__6477ECF3" FromRole="PartyVotes" ToRole="Election" />
+          <NavigationProperty Name="PoliticalParty" Relationship="Self.FK__PartyVote__Party__656C112C" FromRole="PartyVotes" ToRole="PoliticalParty" />
+        </EntityType>
+        <EntityType Name="PoliticalParty">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PartyName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FoundationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Candidate" Relationship="Self.FK__Candidate__Party__4AB81AF0" FromRole="PoliticalParty" ToRole="Candidate" />
+          <NavigationProperty Name="DeputyMayor" Relationship="Self.FK__DeputyMay__Party__534D60F1" FromRole="PoliticalParty" ToRole="DeputyMayor" />
+          <NavigationProperty Name="PartyVotes" Relationship="Self.FK__PartyVote__Party__656C112C" FromRole="PoliticalParty" ToRole="PartyVotes" />
+          <NavigationProperty Name="Result" Relationship="Self.FK__Result__PartyID__6B24EA82" FromRole="PoliticalParty" ToRole="Result" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegionName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="City" Relationship="Self.FK__City__RegionID__45F365D3" FromRole="Region" ToRole="City" />
+        </EntityType>
+        <EntityType Name="Result">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ElectionID" Type="Int32" Nullable="false" />
+          <Property Name="PartyID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VoteCount" Type="Int32" />
+          <Property Name="CityID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="City" Relationship="Self.FK__Result__CityID__6C190EBB" FromRole="Result" ToRole="City" />
+          <NavigationProperty Name="Election" Relationship="Self.FK__Result__Election__6A30C649" FromRole="Result" ToRole="Election" />
+          <NavigationProperty Name="PoliticalParty" Relationship="Self.FK__Result__PartyID__6B24EA82" FromRole="Result" ToRole="PoliticalParty" />
+        </EntityType>
+        <EntityType Name="Vote">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ElectionID" Type="Int32" Nullable="false" />
+          <Property Name="VoterID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CandidateID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="BoxID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ballot_box" Relationship="Self.FK__Vote__BoxID__60A75C0F" FromRole="Vote" ToRole="Ballot_box" />
+          <NavigationProperty Name="Candidate" Relationship="Self.FK__Vote__CandidateI__5FB337D6" FromRole="Vote" ToRole="Candidate" />
+          <NavigationProperty Name="Election" Relationship="Self.FK__Vote__BoxID__5DCAEF64" FromRole="Vote" ToRole="Election" />
+          <NavigationProperty Name="Voter" Relationship="Self.FK__Vote__VoterID__5EBF139D" FromRole="Vote" ToRole="Voter" />
+        </EntityType>
+        <EntityType Name="Voter">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="EligibleToVoteID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="ID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="VoterPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HasVoted" Type="Boolean" Nullable="false" />
+          <Property Name="VoteTimestamp" Type="DateTime" Precision="3" />
+          <Property Name="BoxID" Type="Int32" />
+          <NavigationProperty Name="Ballot_box" Relationship="Self.FK__Voter__BoxID__59FA5E80" FromRole="Voter" ToRole="Ballot_box" />
+          <NavigationProperty Name="EligibleToVote" Relationship="Self.FK__Voter__EligibleT__571DF1D5" FromRole="Voter" ToRole="EligibleToVote" />
+          <NavigationProperty Name="Vote" Relationship="Self.FK__Vote__VoterID__5EBF139D" FromRole="Voter" ToRole="Vote" />
+        </EntityType>
+        <EntityType Name="GENERAL_RESULT_VIEW">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TotalVoteCount" Type="Int32" />
+        </EntityType>
+        <Association Name="FK__Ballot_bo__CityI__4E88ABD4">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Ballot_box" Type="Self.Ballot_box" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Ballot_box">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PartyVote__BoxID__66603565">
+          <End Role="Ballot_box" Type="Self.Ballot_box" Multiplicity="1" />
+          <End Role="PartyVotes" Type="Self.PartyVotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ballot_box">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PartyVotes">
+              <PropertyRef Name="BoxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vote__BoxID__60A75C0F">
+          <End Role="Ballot_box" Type="Self.Ballot_box" Multiplicity="1" />
+          <End Role="Vote" Type="Self.Vote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ballot_box">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Vote">
+              <PropertyRef Name="BoxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Voter__BoxID__59FA5E80">
+          <End Role="Ballot_box" Type="Self.Ballot_box" Multiplicity="1" />
+          <End Role="Voter" Type="Self.Voter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ballot_box">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Voter">
+              <PropertyRef Name="BoxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__CityI__4BAC3F29">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__Elect__49C3F6B7">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="ElectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__Eligi__48CFD27E">
+          <End Role="EligibleToVote" Type="Self.EligibleToVote" Multiplicity="0..1" />
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EligibleToVote">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="EligibleToVoteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__Party__4AB81AF0">
+          <End Role="PoliticalParty" Type="Self.PoliticalParty" Multiplicity="1" />
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PoliticalParty">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="PartyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DeputyMay__Candi__5441852A">
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="0..1" />
+          <End Role="DeputyMayor" Type="Self.DeputyMayor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DeputyMayor">
+              <PropertyRef Name="CandidateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vote__CandidateI__5FB337D6">
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="1" />
+          <End Role="Vote" Type="Self.Vote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Vote">
+              <PropertyRef Name="CandidateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EligibleT__Citiz__3D5E1FD2">
+          <End Role="Citizen" Type="Self.Citizen" Multiplicity="0..1" />
+          <End Role="EligibleToVote" Type="Self.EligibleToVote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Citizen">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EligibleToVote">
+              <PropertyRef Name="CitizenID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Not_eligi__Citiz__3A81B327">
+          <End Role="Citizen" Type="Self.Citizen" Multiplicity="0..1" />
+          <End Role="Not_eligible_to_vote" Type="Self.Not_eligible_to_vote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Citizen">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Not_eligible_to_vote">
+              <PropertyRef Name="CitizenID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__City__RegionID__45F365D3">
+          <End Role="Region" Type="Self.Region" Multiplicity="0..1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Result__CityID__6C190EBB">
+          <End Role="City" Type="Self.City" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Result" Type="Self.Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Result">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DeputyMay__Eligi__52593CB8">
+          <End Role="EligibleToVote" Type="Self.EligibleToVote" Multiplicity="0..1" />
+          <End Role="DeputyMayor" Type="Self.DeputyMayor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EligibleToVote">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DeputyMayor">
+              <PropertyRef Name="EligibleToVoteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DeputyMay__Party__534D60F1">
+          <End Role="PoliticalParty" Type="Self.PoliticalParty" Multiplicity="0..1" />
+          <End Role="DeputyMayor" Type="Self.DeputyMayor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PoliticalParty">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DeputyMayor">
+              <PropertyRef Name="PartyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PartyVote__Elect__6477ECF3">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="PartyVotes" Type="Self.PartyVotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PartyVotes">
+              <PropertyRef Name="ElectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Result__Election__6A30C649">
+          <End Role="Election" Type="Self.Election" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Result" Type="Self.Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Result">
+              <PropertyRef Name="ElectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vote__BoxID__5DCAEF64">
+          <End Role="Election" Type="Self.Election" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Vote" Type="Self.Vote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Vote">
+              <PropertyRef Name="ElectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Voter__EligibleT__571DF1D5">
+          <End Role="EligibleToVote" Type="Self.EligibleToVote" Multiplicity="0..1" />
+          <End Role="Voter" Type="Self.Voter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EligibleToVote">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Voter">
+              <PropertyRef Name="EligibleToVoteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PartyVote__Party__656C112C">
+          <End Role="PoliticalParty" Type="Self.PoliticalParty" Multiplicity="1" />
+          <End Role="PartyVotes" Type="Self.PartyVotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PoliticalParty">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PartyVotes">
+              <PropertyRef Name="PartyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Result__PartyID__6B24EA82">
+          <End Role="PoliticalParty" Type="Self.PoliticalParty" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Result" Type="Self.Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PoliticalParty">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Result">
+              <PropertyRef Name="PartyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vote__VoterID__5EBF139D">
+          <End Role="Voter" Type="Self.Voter" Multiplicity="1" />
+          <End Role="Vote" Type="Self.Vote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Voter">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Vote">
+              <PropertyRef Name="VoterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ElectionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Ballot_box" EntityType="Self.Ballot_box" />
+          <EntitySet Name="Candidate" EntityType="Self.Candidate" />
+          <EntitySet Name="Citizen" EntityType="Self.Citizen" />
+          <EntitySet Name="City" EntityType="Self.City" />
+          <EntitySet Name="DeputyMayor" EntityType="Self.DeputyMayor" />
+          <EntitySet Name="Election" EntityType="Self.Election" />
+          <EntitySet Name="EligibleToVote" EntityType="Self.EligibleToVote" />
+          <EntitySet Name="Not_eligible_to_vote" EntityType="Self.Not_eligible_to_vote" />
+          <EntitySet Name="PartyVotes" EntityType="Self.PartyVotes" />
+          <EntitySet Name="PoliticalParty" EntityType="Self.PoliticalParty" />
+          <EntitySet Name="Region" EntityType="Self.Region" />
+          <EntitySet Name="Result" EntityType="Self.Result" />
+          <EntitySet Name="Vote" EntityType="Self.Vote" />
+          <EntitySet Name="Voter" EntityType="Self.Voter" />
+          <EntitySet Name="GENERAL_RESULT_VIEW" EntityType="Self.GENERAL_RESULT_VIEW" />
+          <AssociationSet Name="FK__Ballot_bo__CityI__4E88ABD4" Association="Self.FK__Ballot_bo__CityI__4E88ABD4">
+            <End Role="City" EntitySet="City" />
+            <End Role="Ballot_box" EntitySet="Ballot_box" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartyVote__BoxID__66603565" Association="Self.FK__PartyVote__BoxID__66603565">
+            <End Role="Ballot_box" EntitySet="Ballot_box" />
+            <End Role="PartyVotes" EntitySet="PartyVotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vote__BoxID__60A75C0F" Association="Self.FK__Vote__BoxID__60A75C0F">
+            <End Role="Ballot_box" EntitySet="Ballot_box" />
+            <End Role="Vote" EntitySet="Vote" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Voter__BoxID__59FA5E80" Association="Self.FK__Voter__BoxID__59FA5E80">
+            <End Role="Ballot_box" EntitySet="Ballot_box" />
+            <End Role="Voter" EntitySet="Voter" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__CityI__4BAC3F29" Association="Self.FK__Candidate__CityI__4BAC3F29">
+            <End Role="City" EntitySet="City" />
+            <End Role="Candidate" EntitySet="Candidate" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__Elect__49C3F6B7" Association="Self.FK__Candidate__Elect__49C3F6B7">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="Candidate" EntitySet="Candidate" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__Eligi__48CFD27E" Association="Self.FK__Candidate__Eligi__48CFD27E">
+            <End Role="EligibleToVote" EntitySet="EligibleToVote" />
+            <End Role="Candidate" EntitySet="Candidate" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__Party__4AB81AF0" Association="Self.FK__Candidate__Party__4AB81AF0">
+            <End Role="PoliticalParty" EntitySet="PoliticalParty" />
+            <End Role="Candidate" EntitySet="Candidate" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DeputyMay__Candi__5441852A" Association="Self.FK__DeputyMay__Candi__5441852A">
+            <End Role="Candidate" EntitySet="Candidate" />
+            <End Role="DeputyMayor" EntitySet="DeputyMayor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vote__CandidateI__5FB337D6" Association="Self.FK__Vote__CandidateI__5FB337D6">
+            <End Role="Candidate" EntitySet="Candidate" />
+            <End Role="Vote" EntitySet="Vote" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EligibleT__Citiz__3D5E1FD2" Association="Self.FK__EligibleT__Citiz__3D5E1FD2">
+            <End Role="Citizen" EntitySet="Citizen" />
+            <End Role="EligibleToVote" EntitySet="EligibleToVote" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Not_eligi__Citiz__3A81B327" Association="Self.FK__Not_eligi__Citiz__3A81B327">
+            <End Role="Citizen" EntitySet="Citizen" />
+            <End Role="Not_eligible_to_vote" EntitySet="Not_eligible_to_vote" />
+          </AssociationSet>
+          <AssociationSet Name="FK__City__RegionID__45F365D3" Association="Self.FK__City__RegionID__45F365D3">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Result__CityID__6C190EBB" Association="Self.FK__Result__CityID__6C190EBB">
+            <End Role="City" EntitySet="City" />
+            <End Role="Result" EntitySet="Result" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DeputyMay__Eligi__52593CB8" Association="Self.FK__DeputyMay__Eligi__52593CB8">
+            <End Role="EligibleToVote" EntitySet="EligibleToVote" />
+            <End Role="DeputyMayor" EntitySet="DeputyMayor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DeputyMay__Party__534D60F1" Association="Self.FK__DeputyMay__Party__534D60F1">
+            <End Role="PoliticalParty" EntitySet="PoliticalParty" />
+            <End Role="DeputyMayor" EntitySet="DeputyMayor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartyVote__Elect__6477ECF3" Association="Self.FK__PartyVote__Elect__6477ECF3">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="PartyVotes" EntitySet="PartyVotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Result__Election__6A30C649" Association="Self.FK__Result__Election__6A30C649">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="Result" EntitySet="Result" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vote__BoxID__5DCAEF64" Association="Self.FK__Vote__BoxID__5DCAEF64">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="Vote" EntitySet="Vote" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Voter__EligibleT__571DF1D5" Association="Self.FK__Voter__EligibleT__571DF1D5">
+            <End Role="EligibleToVote" EntitySet="EligibleToVote" />
+            <End Role="Voter" EntitySet="Voter" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PartyVote__Party__656C112C" Association="Self.FK__PartyVote__Party__656C112C">
+            <End Role="PoliticalParty" EntitySet="PoliticalParty" />
+            <End Role="PartyVotes" EntitySet="PartyVotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Result__PartyID__6B24EA82" Association="Self.FK__Result__PartyID__6B24EA82">
+            <End Role="PoliticalParty" EntitySet="PoliticalParty" />
+            <End Role="Result" EntitySet="Result" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vote__VoterID__5EBF139D" Association="Self.FK__Vote__VoterID__5EBF139D">
+            <End Role="Voter" EntitySet="Voter" />
+            <End Role="Vote" EntitySet="Vote" />
+          </AssociationSet>
+          <FunctionImport Name="GetCandidatesByCity" ReturnType="Collection(ElectionModel.GetCandidatesByCity_Result)">
+          <Parameter Name="VoterID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetCandidatesWithDeputyByCity" ReturnType="Collection(ElectionModel.GetCandidatesWithDeputyByCity_Result)">
+          <Parameter Name="VoterID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetVoterInformation" ReturnType="Collection(ElectionModel.GetVoterInformation_Result)">
+          <Parameter Name="VoterID" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="CHECK_RESULT_FOR_CLUSTER_COLUMNSSet" EntityType="ElectionModel.CHECK_RESULT_FOR_CLUSTER_COLUMNS" />
+          <EntitySet Name="NotEligibleToVote" EntityType="ElectionModel.NotEligibleToVote" />
+          <AssociationSet Name="FK__NotEligib__Citiz__4CA06362" Association="ElectionModel.FK__NotEligib__Citiz__4CA06362">
+            <End Role="Citizen" EntitySet="Citizen" />
+            <End Role="NotEligibleToVote" EntitySet="NotEligibleToVote" />
+          </AssociationSet>
+          <FunctionImport Name="GetAllUsers" />
+          <EntitySet Name="Not_eligible_to_vote1Set" EntityType="ElectionModel.Not_eligible_to_vote1" />
+          <EntitySet Name="CHECK_RESULT_FOR_CLUSTER_COLUMNS1Set" EntityType="ElectionModel.CHECK_RESULT_FOR_CLUSTER_COLUMNS1" />
+          <EntitySet Name="GENERAL_RESULT_VIEW1Set" EntityType="ElectionModel.GENERAL_RESULT_VIEW1" />
+          <AssociationSet Name="FK__Not_eligi__Citiz__3A81B3271" Association="ElectionModel.FK__Not_eligi__Citiz__3A81B3271">
+            <End Role="Citizen" EntitySet="Citizen" />
+            <End Role="Not_eligible_to_vote1" EntitySet="Not_eligible_to_vote1Set" />
+          </AssociationSet>
+          <FunctionImport Name="GetCandidatesByCity1" ReturnType="Collection(ElectionModel.GetCandidatesByCity1_Result)">
+            <Parameter Name="VoterID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetCandidatesWithDeputyByCity1" ReturnType="Collection(ElectionModel.GetCandidatesWithDeputyByCity1_Result)">
+            <Parameter Name="VoterID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetVoterInformation1" ReturnType="Collection(ElectionModel.GetVoterInformation1_Result)">
+            <Parameter Name="VoterID" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetCandidatesByCity_Result">
+          <Property Type="String" Name="CandidateID" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="CandidateName" Nullable="false" MaxLength="72" />
+          <Property Type="String" Name="PartyName" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="GetCandidatesWithDeputyByCity_Result">
+          <Property Type="String" Name="CandidateID" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="CandidateName" Nullable="false" MaxLength="72" />
+          <Property Type="String" Name="PartyName" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="DeputyMayorID" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="DeputyMayorName" Nullable="true" MaxLength="72" />
+        </ComplexType>
+        <ComplexType Name="GetVoterInformation_Result">
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="72" />
+          <Property Type="DateTime" Name="Birthday" Nullable="false" />
+          <Property Type="Int32" Name="BallotBoxID" Nullable="true" />
+          <Property Type="String" Name="CityName" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <EntityType Name="CHECK_RESULT_FOR_CLUSTER_COLUMNS">
+          <Key>
+            <PropertyRef Name="CityName" />
+            <PropertyRef Name="PartyName" />
+          </Key>
+          <Property Name="CityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PartyName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="VoteCount" Type="Int32" />
+        </EntityType>
+        <EntityType Name="NotEligibleToVote">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="MainReason" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Citizen" Relationship="ElectionModel.FK__NotEligib__Citiz__4CA06362" FromRole="NotEligibleToVote" ToRole="Citizen" />
+        </EntityType>
+        <Association Name="FK__NotEligib__Citiz__4CA06362">
+          <End Type="ElectionModel.Citizen" Role="Citizen" Multiplicity="0..1" />
+          <End Type="ElectionModel.NotEligibleToVote" Role="NotEligibleToVote" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Not_eligible_to_vote1">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="MainReason" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Citizen" Relationship="ElectionModel.FK__Not_eligi__Citiz__3A81B3271" FromRole="Not_eligible_to_vote1" ToRole="Citizen" />
+        </EntityType>
+        <EntityType Name="CHECK_RESULT_FOR_CLUSTER_COLUMNS1">
+          <Key>
+            <PropertyRef Name="CityName" />
+            <PropertyRef Name="PartyName" />
+          </Key>
+          <Property Name="CityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PartyName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="VoteCount" Type="Int32" />
+        </EntityType>
+        <EntityType Name="GENERAL_RESULT_VIEW1">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="TotalVoteCount" Type="Int32" />
+        </EntityType>
+        <Association Name="FK__Not_eligi__Citiz__3A81B3271">
+          <End Type="ElectionModel.Citizen" Role="Citizen" Multiplicity="0..1" />
+          <End Type="ElectionModel.Not_eligible_to_vote1" Role="Not_eligible_to_vote1" Multiplicity="*" />
+        </Association>
+        <ComplexType Name="GetCandidatesByCity1_Result">
+          <Property Type="String" Name="CandidateID" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="CandidateName" Nullable="false" MaxLength="72" />
+          <Property Type="String" Name="PartyName" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="GetCandidatesWithDeputyByCity1_Result">
+          <Property Type="String" Name="CandidateID" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="CandidateName" Nullable="false" MaxLength="72" />
+          <Property Type="String" Name="PartyName" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="DeputyMayorID" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="DeputyMayorName" Nullable="true" MaxLength="72" />
+        </ComplexType>
+        <ComplexType Name="GetVoterInformation1_Result">
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="72" />
+          <Property Type="DateTime" Name="Birthday" Nullable="false" />
+          <Property Type="Int32" Name="BallotBoxID" Nullable="true" />
+          <Property Type="String" Name="CityName" Nullable="false" MaxLength="20" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ElectionModelStoreContainer" CdmEntityContainer="ElectionEntities">
+          <EntitySetMapping Name="Ballot_box">
+            <EntityTypeMapping TypeName="ElectionModel.Ballot_box">
+              <MappingFragment StoreEntitySet="Ballot_box">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="VoterCount" ColumnName="VoterCount" />
+                <ScalarProperty Name="VoteCount" ColumnName="VoteCount" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Candidate">
+            <EntityTypeMapping TypeName="ElectionModel.Candidate">
+              <MappingFragment StoreEntitySet="Candidate">
+                <ScalarProperty Name="EligibleToVoteID" ColumnName="EligibleToVoteID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ElectionID" ColumnName="ElectionID" />
+                <ScalarProperty Name="PartyID" ColumnName="PartyID" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Citizen">
+            <EntityTypeMapping TypeName="ElectionModel.Citizen">
+              <MappingFragment StoreEntitySet="Citizen">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="City">
+            <EntityTypeMapping TypeName="ElectionModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeputyMayor">
+            <EntityTypeMapping TypeName="ElectionModel.DeputyMayor">
+              <MappingFragment StoreEntitySet="DeputyMayor">
+                <ScalarProperty Name="EligibleToVoteID" ColumnName="EligibleToVoteID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PartyID" ColumnName="PartyID" />
+                <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Election">
+            <EntityTypeMapping TypeName="ElectionModel.Election">
+              <MappingFragment StoreEntitySet="Election">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ElectionType" ColumnName="ElectionType" />
+                <ScalarProperty Name="ElectionDate" ColumnName="ElectionDate" />
+                <ScalarProperty Name="ParticipationRate" ColumnName="ParticipationRate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EligibleToVote">
+            <EntityTypeMapping TypeName="ElectionModel.EligibleToVote">
+              <MappingFragment StoreEntitySet="EligibleToVote">
+                <ScalarProperty Name="CitizenID" ColumnName="CitizenID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PartyVotes">
+            <EntityTypeMapping TypeName="ElectionModel.PartyVotes">
+              <MappingFragment StoreEntitySet="PartyVotes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ElectionID" ColumnName="ElectionID" />
+                <ScalarProperty Name="BoxID" ColumnName="BoxID" />
+                <ScalarProperty Name="PartyID" ColumnName="PartyID" />
+                <ScalarProperty Name="VoteCount" ColumnName="VoteCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PoliticalParty">
+            <EntityTypeMapping TypeName="ElectionModel.PoliticalParty">
+              <MappingFragment StoreEntitySet="PoliticalParty">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PartyName" ColumnName="PartyName" />
+                <ScalarProperty Name="FoundationDate" ColumnName="FoundationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Region">
+            <EntityTypeMapping TypeName="ElectionModel.Region">
+              <MappingFragment StoreEntitySet="Region">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Result">
+            <EntityTypeMapping TypeName="ElectionModel.Result">
+              <MappingFragment StoreEntitySet="Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ElectionID" ColumnName="ElectionID" />
+                <ScalarProperty Name="PartyID" ColumnName="PartyID" />
+                <ScalarProperty Name="VoteCount" ColumnName="VoteCount" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vote">
+            <EntityTypeMapping TypeName="ElectionModel.Vote">
+              <MappingFragment StoreEntitySet="Vote">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ElectionID" ColumnName="ElectionID" />
+                <ScalarProperty Name="VoterID" ColumnName="VoterID" />
+                <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
+                <ScalarProperty Name="BoxID" ColumnName="BoxID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Voter">
+            <EntityTypeMapping TypeName="ElectionModel.Voter">
+              <MappingFragment StoreEntitySet="Voter">
+                <ScalarProperty Name="EligibleToVoteID" ColumnName="EligibleToVoteID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="VoterPassword" ColumnName="VoterPassword" />
+                <ScalarProperty Name="HasVoted" ColumnName="HasVoted" />
+                <ScalarProperty Name="VoteTimestamp" ColumnName="VoteTimestamp" />
+                <ScalarProperty Name="BoxID" ColumnName="BoxID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Not_eligible_to_vote1Set">
+            <EntityTypeMapping TypeName="ElectionModel.Not_eligible_to_vote1">
+              <MappingFragment StoreEntitySet="Not_eligible_to_vote">
+                <ScalarProperty Name="MainReason" ColumnName="MainReason" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHECK_RESULT_FOR_CLUSTER_COLUMNS1Set">
+            <EntityTypeMapping TypeName="ElectionModel.CHECK_RESULT_FOR_CLUSTER_COLUMNS1">
+              <MappingFragment StoreEntitySet="CHECK_RESULT_FOR_CLUSTER_COLUMNS">
+                <ScalarProperty Name="VoteCount" ColumnName="VoteCount" />
+                <ScalarProperty Name="PartyName" ColumnName="PartyName" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GENERAL_RESULT_VIEW1Set">
+            <EntityTypeMapping TypeName="ElectionModel.GENERAL_RESULT_VIEW1">
+              <MappingFragment StoreEntitySet="GENERAL_RESULT_VIEW">
+                <ScalarProperty Name="TotalVoteCount" ColumnName="TotalVoteCount" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK__Not_eligi__Citiz__3A81B3271" TypeName="ElectionModel.FK__Not_eligi__Citiz__3A81B3271" StoreEntitySet="Not_eligible_to_vote">
+            <EndProperty Name="Not_eligible_to_vote1">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="Citizen">
+              <ScalarProperty Name="ID" ColumnName="CitizenID" />
+            </EndProperty>
+            <Condition ColumnName="CitizenID" IsNull="false" />
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="GetCandidatesByCity1" FunctionName="ElectionModel.Store.GetCandidatesByCity">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ElectionModel.GetCandidatesByCity1_Result">
+                <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
+                <ScalarProperty Name="CandidateName" ColumnName="CandidateName" />
+                <ScalarProperty Name="PartyName" ColumnName="PartyName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCandidatesWithDeputyByCity1" FunctionName="ElectionModel.Store.GetCandidatesWithDeputyByCity">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ElectionModel.GetCandidatesWithDeputyByCity1_Result">
+                <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
+                <ScalarProperty Name="CandidateName" ColumnName="CandidateName" />
+                <ScalarProperty Name="PartyName" ColumnName="PartyName" />
+                <ScalarProperty Name="DeputyMayorID" ColumnName="DeputyMayorID" />
+                <ScalarProperty Name="DeputyMayorName" ColumnName="DeputyMayorName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetVoterInformation1" FunctionName="ElectionModel.Store.GetVoterInformation">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ElectionModel.GetVoterInformation1_Result">
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="BallotBoxID" ColumnName="BallotBoxID" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
